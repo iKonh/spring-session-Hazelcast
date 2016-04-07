@@ -1,0 +1,5 @@
+spring:
+  hazelcast:
+    config: Hazelcast-test.xml
+server:
+  port: 8080
