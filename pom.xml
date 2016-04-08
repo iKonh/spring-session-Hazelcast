@@ -10,10 +10,12 @@
 		<module>Hazelcast-test</module>
 		<module>Hazelcast-server</module>
 		<module>Spring-session</module>
+		<module>spring-session-test</module>
+		<module>Spring-session-entity</module>
 	</modules>
 	<packaging>pom</packaging>
 
-	<name>demo</name>
+	<name>spring-session-Hazelcast</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>

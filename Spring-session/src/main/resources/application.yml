@@ -1,2 +1,7 @@
 server:
   port: 8085
+hazelcast:
+  mancenter: 192.168.2.224:8080
+  group:
+    name: Hazelcast-Dev
+    password: Hazelcast-Dev

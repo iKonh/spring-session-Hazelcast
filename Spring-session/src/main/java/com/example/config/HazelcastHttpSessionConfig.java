@@ -6,7 +6,9 @@ import com.hazelcast.client.config.ClientNetworkConfig;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.DiscoveryConfig;
 import com.hazelcast.config.GroupConfig;
+import com.hazelcast.config.ManagementCenterConfig;
 import com.hazelcast.core.HazelcastInstance;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.hazelcast.config.annotation.web.http.EnableHazelcastHttpSession;
 
@@ -16,12 +18,39 @@ import org.springframework.session.hazelcast.config.annotation.web.http.EnableHa
 @EnableHazelcastHttpSession
 public class HazelcastHttpSessionConfig {
 
+    @Value("http://${hazelcast.mancenter}/mancenter")
+    protected String url;
+
+    @Value("${hazelcast.group.name}")
+    protected String groupName;
+
+    @Value("${hazelcast.group.password}")
+    protected String groupPassword;
+
+    // Client
+//    @Bean
+//    public HazelcastInstance embeddedHazelcast() {
+//        ClientConfig clientConfig = new ClientConfig();
+//        clientConfig.getNetworkConfig().addAddress("localhost");
+//        clientConfig.setGroupConfig(new GroupConfig().setName("Hazelcast-Dev").setPassword("Hazelcast-Dev"));
+//        return HazelcastClient.newHazelcastClient(clientConfig);
+//    }
+
+    // Node
     @Bean
-    public HazelcastInstance embeddedHazelcast() {
-        ClientConfig clientConfig = new ClientConfig();
-        clientConfig.getNetworkConfig().addAddress("192.168.2.37");
-        clientConfig.setGroupConfig(new GroupConfig().setName("Hazelcast-Dev").setPassword("Hazelcast-Dev"));
-        return HazelcastClient.newHazelcastClient(clientConfig);
+    public Config config() {
+        Config config = new Config();
+
+        // ManagerCenter Configuration
+        ManagementCenterConfig managementCenterConfig = config.getManagementCenterConfig();
+        managementCenterConfig.setEnabled(true).setUrl("http://192.168.2.224:8080/mancenter");
+        config.setManagementCenterConfig(managementCenterConfig);
+
+        GroupConfig groupConfig = config.getGroupConfig();
+        groupConfig.setName("Hazelcast-Dev");
+        groupConfig.setPassword("Hazelcast-Dev");
+
+        return config;
     }
 
 }
