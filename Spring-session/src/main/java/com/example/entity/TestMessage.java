@@ -10,4 +10,6 @@ public class TestMessage implements Serializable {
     public String title;
 
     public String body;
+
+    public int count;
 }
