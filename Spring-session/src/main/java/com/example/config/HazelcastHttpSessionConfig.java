@@ -43,12 +43,12 @@ public class HazelcastHttpSessionConfig {
 
         // ManagerCenter Configuration
         ManagementCenterConfig managementCenterConfig = config.getManagementCenterConfig();
-        managementCenterConfig.setEnabled(true).setUrl("http://192.168.2.224:8080/mancenter");
+        managementCenterConfig.setEnabled(true).setUrl(url);
         config.setManagementCenterConfig(managementCenterConfig);
 
         GroupConfig groupConfig = config.getGroupConfig();
-        groupConfig.setName("Hazelcast-Dev");
-        groupConfig.setPassword("Hazelcast-Dev");
+        groupConfig.setName(groupName);
+        groupConfig.setPassword(groupPassword);
 
         return config;
     }
